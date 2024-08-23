@@ -657,7 +657,7 @@ namespace yy {
 #line 74 "parser.y"
                   {
         varTable main_table;
-        auto main_node = new FunctionCallNode("work", new NumberNode(GenericType(), "void"), global_table);
+        auto main_node = new FunctionCallNode("work", new NumberNode(Value(), "void"), global_table);
         main_node->eval(main_table);
 }
 #line 664 "parser.tab.cc"
@@ -667,13 +667,13 @@ namespace yy {
 #line 87 "parser.y"
     {
         // Storing lambda to be called 
-        FuncLambda func = [=](GenericType arg, nodeList& body, Signature sign) {
+        FuncLambda func = [=](Value arg, nodeList& body, Signature sign) {
             global_table.print();
             varTable localVars;
             // Assign the parameter to the local variable
             localVars.setVar(sign.second, arg); 
             // Evaluate the function body
-            GenericType result;
+            Value result;
             for (auto stmt : body) {
                 if (stmt->eval(localVars).getRet()) break;
                 localVars.print();
@@ -764,7 +764,7 @@ namespace yy {
   case 17: // decl_vector_stmt: VECTOR OF TYPE IDENTIFIER ';'
 #line 136 "parser.y"
                                   {
-        yylhs.value.as < Node* > () = new VectorNode(GenericType(yystack_[2].value.as < CurType > ()), yystack_[1].value.as < std::string > ());      
+        yylhs.value.as < Node* > () = new VectorNode(Value(yystack_[2].value.as < CurType > ()), yystack_[1].value.as < std::string > ());      
     }
 #line 770 "parser.tab.cc"
     break;
@@ -812,7 +812,7 @@ namespace yy {
   case 23: // decl_stmt: TYPE IDENTIFIER ';'
 #line 175 "parser.y"
                       {
-    yylhs.value.as < Node* > () = new NumberNode(GenericType(yystack_[2].value.as < CurType > ()), yystack_[1].value.as < std::string > ());
+    yylhs.value.as < Node* > () = new NumberNode(Value(yystack_[2].value.as < CurType > ()), yystack_[1].value.as < std::string > ());
 }
 #line 818 "parser.tab.cc"
     break;
@@ -892,7 +892,7 @@ namespace yy {
   case 33: // expr: IDENTIFIER
 #line 217 "parser.y"
     {
-        yylhs.value.as < Node* > () = new NumberNode(GenericType(), yystack_[0].value.as < std::string > ());
+        yylhs.value.as < Node* > () = new NumberNode(Value(), yystack_[0].value.as < std::string > ());
     }
 #line 898 "parser.tab.cc"
     break;

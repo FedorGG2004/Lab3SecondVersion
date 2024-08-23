@@ -3,7 +3,7 @@
 FunctionCallNode::FunctionCallNode (const std::string &name, Node *arg, funcTable &table) 
 : m_fdtor(table.getFunc(name)), m_arg(arg), m_table(table), m_name(name) {}
 
-GenericType FunctionCallNode::eval(varTable& vm) {     
+Value FunctionCallNode::eval(varTable& vm) {     
 
     // Call the function on arguments
     std::cout << "function call" << std::endl;

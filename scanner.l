@@ -1,7 +1,7 @@
 %{
 #include "scanner.h"
 #include <sstream>
-#include "genericType.h"
+#include "values.h"
 using namespace std;
 %}
 

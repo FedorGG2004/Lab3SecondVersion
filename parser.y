@@ -73,7 +73,7 @@ class Scanner;
 program:
     function_defs {
         varTable main_table;
-        auto main_node = new FunctionCallNode("work", new NumberNode(GenericType(), "void"), global_table);
+        auto main_node = new FunctionCallNode("work", new NumberNode(Value(), "void"), global_table);
         main_node->eval(main_table);
 };
 
@@ -86,13 +86,13 @@ function_def:
     func_start statements ENDL
     {
         // Storing lambda to be called 
-        FuncLambda func = [=](GenericType arg, nodeList& body, Signature sign) {
+        FuncLambda func = [=](Value arg, nodeList& body, Signature sign) {
             global_table.print();
             varTable localVars;
             // Assign the parameter to the local variable
             localVars.setVar(sign.second, arg); 
             // Evaluate the function body
-            GenericType result;
+            Value result;
             for (auto stmt : body) {
                 if (stmt->eval(localVars).getRet()) break;
                 localVars.print();
@@ -134,7 +134,7 @@ statement:
 
 decl_vector_stmt:
     VECTOR OF TYPE IDENTIFIER ';' {
-        $$ = new VectorNode(GenericType($3), $4);      
+        $$ = new VectorNode(Value($3), $4);      
     }
 // set_vector_stmt:
    // VECTOR OF TYPE IDENTIFIER ';' {
@@ -173,7 +173,7 @@ set_stmt
 
 decl_stmt
 : TYPE IDENTIFIER ';' {
-    $$ = new NumberNode(GenericType($1), $2);
+    $$ = new NumberNode(Value($1), $2);
 } 
 
 expr:
@@ -215,7 +215,7 @@ expr:
     }
     | IDENTIFIER
     {
-        $$ = new NumberNode(GenericType(), $1);
+        $$ = new NumberNode(Value(), $1);
     }
 ;
 
